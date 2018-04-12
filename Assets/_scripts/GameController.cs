@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controller for game states, UI values and ship health.
 public class GameController : MonoBehaviour {
 
     public int rScoreInt, bScoreInt, bhealth, rhealth;
@@ -16,7 +17,7 @@ public class GameController : MonoBehaviour {
     private float roundTimer;
     private bool gameover;
 
-	// Use this for initialization
+	// Initialising healths, scores and the timer
 	void Start () {
         rScoreInt = 0;
         bScoreInt = 0;
@@ -28,7 +29,7 @@ public class GameController : MonoBehaviour {
         redHealthDisplay.text = "HP: " + rhealth.ToString();
         blueHealthDisplay.text = "HP: " + bhealth.ToString();
 
-        roundTimer = 60;
+        roundTimer = 5;
         roundTimerDisplay.text = "Time Remaining: " + roundTimer.ToString();
 
         redController = redShip.GetComponent<ShipController>();
@@ -37,13 +38,14 @@ public class GameController : MonoBehaviour {
         gameoverpanel.SetActive(false);
     }
 
+    //Simple method called in the territorycontrollers to add to score
     public void addScore(int redAdd, int blueAdd)
     {
         rScoreInt += redAdd;
         bScoreInt += blueAdd;
     }
 	
-	// Update is called once per frame
+	// Update used mostly for the pregame/postgame states, as well as updating the UI
 	void Update () {
 
         if (startPanel.activeSelf)
@@ -77,6 +79,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    //Enters game-over state, freezes players and sets up final screen
     void RoundOver()
     {
         gameover = true;
@@ -85,23 +88,38 @@ public class GameController : MonoBehaviour {
 
         string winner;
         string winnerpoints;
-        if (rScoreInt >= bScoreInt)
+        string loser;
+        string loserpoints;
+        string finalString;
+        if (rScoreInt > bScoreInt)
         {
             winner = "Red";
             winnerpoints = rScoreInt.ToString();
+            loser = "Blue";
+            loserpoints = bScoreInt.ToString();
+
+            finalString = "The Winner is " +winner +" with "+ winnerpoints + " points! \n  Hard luck " +loser+" \n Press Enter to return to the main menu.";
+
         }
-        else {
+        else if (rScoreInt < bScoreInt){
             winnerpoints = bScoreInt.ToString();
             winner = "Blue";
+            loser = "Red";
+            loserpoints = rScoreInt.ToString();
+
+            finalString = "The Winner is " +winner +" with "+ winnerpoints + " points! \n Hard luck " +loser+" \n Press Enter to return to the main menu.";
+        } else if (rScoreInt == bScoreInt){
+            finalString = "A Draw? That was unlikely... \n Press Enter to return to the main menu.";
+        } else {
+            finalString = "Game ended on a bad note... \n Press Enter to return to the main menu.";
         }
 
-        gameoverText.text = "The Winner is " +winner +" with "+ winnerpoints + " points! \n Press Enter to return to the main menu.";
-
+        gameoverText.text =  finalString;
         gameoverpanel.SetActive(true);
 
 
     }
-
+    //Manages damage being dealt to ships, provides a link between ships bullets and the UI
     public void damageDealt(int rDamage, int bDamage)
     {
         rhealth -= rDamage;
@@ -109,17 +127,20 @@ public class GameController : MonoBehaviour {
         if (rhealth <= 0)
         {
             redController.shipDestroyed();
+            //true for the isRed argument
             respawnShip(true);
             rhealth = 3;
         }
         if (bhealth <= 0)
         {
             blueController.shipDestroyed();
+            //false for the isRed argument
             respawnShip(false);
             bhealth = 3;
         }
     }
 
+    //The respawnShip method exists just to thread the respawn timers
     public void respawnShip(bool isRed)
     {
         if (isRed)
@@ -132,6 +153,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    //Waits 3 seconds before respawning a dead ship
     private IEnumerator respawnTimer(bool red)
     {
         yield return new WaitForSeconds(3);

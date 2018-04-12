@@ -1,15 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Paired with BlueBulletController - Script to manage the behaviour of a bullet fired by the Red ship.
 public class RedBulletController : MonoBehaviour {
 
     public ParticleSystem explode;
 
     public GameController gameController;
 
-
-    // Use this for initialization
     void Start () {
         explode.Stop();
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
@@ -17,6 +15,7 @@ public class RedBulletController : MonoBehaviour {
 
     }
 
+    //Recognise when hitting something (that isn't your own ship or a territory)
     private void OnTriggerEnter(Collider other)
     {
         if (other.ToString() != "RedFighter (UnityEngine.SphereCollider)" && other.tag != "territory")
@@ -33,14 +32,11 @@ public class RedBulletController : MonoBehaviour {
         }
     }
 
+    //Simple method to prevent explosion from being destroyed as the bullet is
     public void PreventExplodeLinkedDeath()
     {
         explode.transform.parent = null;
         Destroy(explode.gameObject, explode.main.duration);
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

@@ -532,7 +532,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explode: {fileID: 872583601}
-  gameController: {fileID: 0}
 --- !u!136 &79119176
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -41236,9 +41235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 80
-  twistSpeed: 4
-  xBound: 12121
-  zBound: 1212121
+  twistSpeed: 5
+  xBound: 99999
+  zBound: 99999
   trail: {fileID: 607144995}
   bullet: {fileID: 79119170}
   currentlyDestroyed: 0
@@ -53289,7 +53288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 80
-  twistSpeed: 4
+  twistSpeed: 5
   xBound: 6000.16
   zBound: 4000.45
   trail: {fileID: 1377963419}

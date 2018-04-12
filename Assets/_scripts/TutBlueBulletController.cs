@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This bullet controller works the same as the standard, but specialised to apply in the tutorial
 public class TutBlueBulletController : MonoBehaviour
 {
 

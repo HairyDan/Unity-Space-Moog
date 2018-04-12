@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//TerritoryController set up for the tutorial
 public class tutTerritoryController : MonoBehaviour
 {
 

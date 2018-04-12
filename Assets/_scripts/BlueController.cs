@@ -7,7 +7,6 @@ public class BlueController : MonoBehaviour {
     private Rigidbody rb;
     public float speed;
     public float twistSpeed;
-    public float xBound, zBound;
 
     private bool colliding;
 
@@ -25,7 +24,7 @@ public class BlueController : MonoBehaviour {
 
     public GameObject spawnpoint1, spawnpoint2, spawnpoint3, spawnpoint4;
 
-    // Use this for initialization
+    //Set-up references, initialise particle trail as stopped
     void Start () {
         rb = GetComponent<Rigidbody>();
         bulletEjector = GameObject.FindWithTag("blueBulletEjector");
@@ -42,7 +41,7 @@ public class BlueController : MonoBehaviour {
         colliding = false;
     }
 
-
+    //Instantiates new bullet, and the associated noise.
     private void createAndFireBullet()
     {
         AudioSource pew = Instantiate(laserPew);
@@ -54,6 +53,7 @@ public class BlueController : MonoBehaviour {
         laserBullet.AddRelativeForce(new Vector3(0.0f, -1300.0f, 0.0f));
     }
 
+    //When ship is destroyed, it explodes and makes a noise, but the gameobject is just hidden until respawn for simplicity
     public void shipDestroyed()
     {
         AudioSource boomSound = Instantiate(deathSound);
@@ -66,6 +66,7 @@ public class BlueController : MonoBehaviour {
 
     }
 
+    //Respawn ship in one of the 4 random locations with the correct transform
     public void shipRespawn()
     {
         currentlyDestroyed = false;
@@ -95,16 +96,16 @@ public class BlueController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
+        //Check to prevent ship from doing anything during respawn timer
         if (!currentlyDestroyed)
         {
-
+            
             if (Input.GetButtonDown("BlueFire"))
             {
                 createAndFireBullet();
             }
 
-
+            //Play trail when moving
             if (Input.GetButtonDown("VerticalBlue"))
             {
                 trail.Play();
@@ -114,6 +115,7 @@ public class BlueController : MonoBehaviour {
                 trail.Stop();
             }
 
+            //Set floats for turning and acceleration based on GetAxis inputs, for modularity
             float twistLeftRight = Input.GetAxis("HorizontalBlue");
             float moveVertical = Input.GetAxis("VerticalBlue");
 
@@ -125,18 +127,17 @@ public class BlueController : MonoBehaviour {
 
             rb.AddRelativeForce(forwardBackward * speed);
 
+            //Clamps the ship's y axis to prevent unwanted 3D "fun"
             rb.position = new Vector3(
-                Mathf.Clamp(rb.position.x, -xBound, xBound), 0, Mathf.Clamp(rb.position.z, -zBound, zBound)
-                );
+                rb.position.x, 0, rb.position.z);
 
-            float currenty = rb.rotation.y;
 
+            //In case of unwanted twist being applied by a dodgey collision - twist is undone
             if (!colliding)
             {
                 Quaternion rotationFrom = rb.rotation;
                 Quaternion rotationTo = Quaternion.Euler(-90, rb.rotation.eulerAngles.y, 0);
                 rb.rotation = Quaternion.RotateTowards(rotationFrom, rotationTo, Time.deltaTime * 100.0f);
-                // rb.rotation = Quaternion.Euler(-90.0f, rb.rotation.eulerAngles.y, 0.0f);
             }
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class tutController : MonoBehaviour {
 
-    public int rScoreInt, bScoreInt, bhealth, rhealth;
+    int rScoreInt, bScoreInt, bhealth, rhealth;
     public GUIText redScore, blueScore, redHealthDisplay, blueHealthDisplay;
 
     public GameObject redShip, blueShip, redEnemy, blueEnemy;
@@ -25,7 +25,6 @@ public class tutController : MonoBehaviour {
     private bool norefreeze, noshootrefreeze;
 
 
-	// Use this for initialization
 	void Start () {
         rScoreInt = 0;
         bScoreInt = 0;
@@ -64,8 +63,7 @@ public class tutController : MonoBehaviour {
         rScoreInt += redAdd;
         bScoreInt += blueAdd;
     }
-	
-	// Update is called once per frame
+
 	void Update () {
         
         redScore.text = "Score: \n" + rScoreInt.ToString();
@@ -76,7 +74,7 @@ public class tutController : MonoBehaviour {
         if (redEnemyDead && blueEnemyDead)
         {
             finishpanel.SetActive(true);
-            if (Input.GetButtonDown("BlueFire"))
+            if (Input.GetButtonDown("Submit"))
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene("mainmenu");
             }
@@ -155,11 +153,6 @@ public class tutController : MonoBehaviour {
                 territoryfreeze = false;
             }
         }
-
-    }
-
-    void RoundOver()
-    {
 
     }
 
