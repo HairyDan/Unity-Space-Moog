@@ -113,17 +113,6 @@ public class ShipController : MonoBehaviour {
                 trail.Stop();
             }
 
-            //Set floats for turning and acceleration based on GetAxis inputs, for modularity
-            float twistLeftRight = Input.GetAxis("Horizontal");
-            float moveVertical = Input.GetAxis("Vertical");
-
-            Vector3 twistVect = new Vector3(0.0f, twistLeftRight * twistSpeed, 0.0f);
-
-            rb.angularVelocity = twistVect;
-
-            Vector3 forwardBackward = new Vector3(0.0f, -moveVertical, 0.0f);
-
-            rb.AddRelativeForce(forwardBackward * speed);
 
             //Clamps the ship's y axis to prevent unwanted 3D "fun"
             rb.position = new Vector3(
@@ -139,5 +128,22 @@ public class ShipController : MonoBehaviour {
             }
         }
 
+    }
+
+    void FixedUpdate(){
+
+        if (!currentlyDestroyed) {
+        //Set floats for turning and acceleration based on GetAxis inputs, for modularity
+            float twistLeftRight = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+
+            Vector3 twistVect = new Vector3(0.0f, twistLeftRight * twistSpeed, 0.0f);
+
+            rb.angularVelocity = twistVect;
+
+            Vector3 forwardBackward = new Vector3(0.0f, -moveVertical, 0.0f);
+
+            rb.AddRelativeForce(forwardBackward * speed);
+        }
     }
 }

@@ -23,7 +23,7 @@ public class TutBlueBulletController : MonoBehaviour
     {
         if (other.ToString() != "BlueFighter (UnityEngine.SphereCollider)" && other.tag != "territory")
         {
-            Debug.Log("BULLET HIT" + other.ToString());
+            //Debug.Log("BULLET HIT" + other.ToString());
             Vector3 notmoving = new Vector3(0, 0, 0);
             explode.Play();
             PreventExplodeLinkedDeath();

@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour {
         redHealthDisplay.text = "HP: " + rhealth.ToString();
         blueHealthDisplay.text = "HP: " + bhealth.ToString();
 
-        roundTimer = 5;
+        roundTimer = 60;
         roundTimerDisplay.text = "Time Remaining: " + roundTimer.ToString();
 
         redController = redShip.GetComponent<ShipController>();

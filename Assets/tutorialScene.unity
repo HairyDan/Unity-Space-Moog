@@ -147,7 +147,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7cb2912222469634ba17a77055919ea8, type: 3}
-    m_FontSize: 36
+    m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -158,14 +158,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Welcome to MOOG.
-
-    Pilot the Red Ship with WASD
-
-    Pilot the Blue Ship with the Arrow Keys.
-
-
-    Move a ship to continue.'
+  m_Text: "Welcome to MOOG.\nPilot the Red Ship with WASD\nPilot the Blue Ship with
+    the Arrow Keys.\n\nMove both ships to continue \nto the next stage."
 --- !u!222 &13875109
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -41163,8 +41157,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 80
   twistSpeed: 3
-  xBound: 12121
-  zBound: 1212121
   trail: {fileID: 607144995}
   bullet: {fileID: 79119170}
   currentlyDestroyed: 0
